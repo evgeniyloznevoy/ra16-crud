@@ -1,38 +1,51 @@
 .App {
   text-align: center;
+  max-width: 70%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.List {
+  display: flex;
+  flex-wrap: wrap;
+} 
+
+.Item {
+  border: 1px solid black;
+  list-style-type: none;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  width: 10rem;
+  min-height: 10rem;
+  display: block;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Item-Content {
+  overflow: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Item-DeleteButton {
+  position: absolute;
+  z-index: 99;
+  bottom: -1rem;
+  right: -2rem;
+}
+
+.AddForm {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.AddForm-Textarea {
+  width: 50%;
+  min-height: 5rem;
+  margin: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.AddForm-Button {
+  width: 3rem;
+  position: absolute;
+  z-index: 98;
+  bottom: 0.5rem;
+  right: 25%;
 }

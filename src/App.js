@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import AddForm from './components/AddForm';
+import List from './components/List';
+import Update from './components/Update';
 
-function App() {
+export default function App() {
+  const [notes, setNotes] = useState([]);
+
+  const getNotes = () => {
+    fetch(process.env.REACT_APP_CRUD_URL)
+      .then(response => response.json())
+      .then((notes) => {
+        setNotes(notes)
+      })
+  }
+
+  useEffect(() => {
+    getNotes();
+  }, [])
+
+  const addNote = (note) => {
+    fetch(process.env.REACT_APP_CRUD_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(note)
+    })
+      .then(() => getNotes())
+  }
+
+  const deleteNote = (id) => {
+    fetch(`${process.env.REACT_APP_CRUD_URL}/${id}`, {
+      method: 'DELETE',
+    })
+      .then(() => getNotes())
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Update getNotes={getNotes} />
+      <List notes={notes} deleteNote={deleteNote} />
+      <AddForm addNote={addNote} />
     </div>
   );
 }
-
-export default App;
